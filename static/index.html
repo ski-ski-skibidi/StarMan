@@ -12,6 +12,38 @@
     <link rel="stylesheet" href="/assets/css/nav.css?v=01" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6840529569014734"
      crossorigin="anonymous"></script>
+    <script>
+  // Variable to manage pop-up window
+  let popUpWindow = null;
+
+  // Function to open Google Classroom in a pop-up window
+  function openGoogleClassroomPopUp() {
+      // If the pop-up is already open, simply navigate to Google Classroom
+      if (popUpWindow && !popUpWindow.closed) {
+          popUpWindow.location.href = 'https://classroom.google.com/';
+      } else {
+          // Otherwise, open a new pop-up window for Google Classroom
+          popUpWindow = window.open('https://classroom.google.com/', 'popUpWindow', 'width=600,height=400');
+      }
+  }
+
+  // Function to check for Alt key press
+  function handleKeyPress(event) {
+      if (event.key === "Alt") {
+          event.preventDefault();  // Prevent the default behavior
+          openGoogleClassroomPopUp();  // Open Google Classroom in the pop-up
+      }
+  }
+
+  // Add event listener for keydown in both main window and pop-up
+  window.addEventListener("keydown", handleKeyPress);
+
+  // If this is a pop-up window (check for a specific condition), listen in pop-up too
+  if (window.opener) {
+      // In the pop-up, the same listener should be active
+      window.opener.addEventListener("keydown", handleKeyPress);
+  }
+</script>
   </head>
   <body class="center" onload="SplashT">
     <div class="f-nav"></div>
